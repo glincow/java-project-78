@@ -25,7 +25,7 @@ jobs:
       - name: Execute Gradle build
         run: ./app/gradlew -p app build
       - name: Generate coverage report
-        run: make report
+        run: make -C app report
       - name: Cache SonarQube packages
         uses: actions/cache@v4
         with:
