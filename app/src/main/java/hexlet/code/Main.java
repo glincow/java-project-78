@@ -4,10 +4,12 @@ package hexlet.code;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        System.out.printf("Hello and welcome!");
+        var v = new Validator();
 
-        for (int i = 1; i <= 5; i++) {
-            System.out.println("i = " + i);
-        }
+        var schema = v.string();
+
+        // Пока не вызван метод required(), null и пустая строка считаются валидным
+        System.out.println(schema.isValid("")); // true
+        System.out.println(schema.isValid(null)); // true
     }
 }
