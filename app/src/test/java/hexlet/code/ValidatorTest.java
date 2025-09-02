@@ -4,8 +4,7 @@ import hexlet.code.schemas.StringSchema;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ValidatorTest {
     private Validator validator;
@@ -19,36 +18,36 @@ class ValidatorTest {
 
     @Test
     void testDefaultValidation() {
-        assertTrue(schema.isValid(""));
-        assertTrue(schema.isValid(null));
-        assertTrue(schema.isValid("any string"));
+        assertThat(schema.isValid("")).isTrue();
+        assertThat(schema.isValid(null)).isTrue();
+        assertThat(schema.isValid("any string")).isTrue();
     }
 
     @Test
     void testRequired() {
         schema.required();
 
-        assertFalse(schema.isValid(null));
-        assertFalse(schema.isValid(""));
-        assertTrue(schema.isValid("any string"));
-        assertTrue(schema.isValid("hexlet"));
+        assertThat(schema.isValid(null)).isFalse();
+        assertThat(schema.isValid("")).isFalse();
+        assertThat(schema.isValid("any string")).isTrue();
+        assertThat(schema.isValid("hexlet")).isTrue();
     }
 
     @Test
     void testMinLength() {
         schema.minLength(5);
 
-        assertTrue(schema.isValid("hexlet"));
-        assertTrue(schema.isValid("what does the fox say"));
-        assertFalse(schema.isValid("hex"));
+        assertThat(schema.isValid("hexlet")).isTrue();
+        assertThat(schema.isValid("what does the fox say")).isTrue();
+        assertThat(schema.isValid("hex")).isFalse();
     }
 
     @Test
     void testContains() {
         schema.contains("hex");
 
-        assertTrue(schema.isValid("hexlet"));
-        assertFalse(schema.isValid("what"));
+        assertThat(schema.isValid("hexlet")).isTrue();
+        assertThat(schema.isValid("what")).isFalse();
     }
 
     @Test
@@ -57,10 +56,28 @@ class ValidatorTest {
                 .minLength(5)
                 .contains("hex");
 
-        assertTrue(schema.isValid("hexlet"));
-        assertFalse(schema.isValid("hex"));
-        assertFalse(schema.isValid(""));
-        assertFalse(schema.isValid(null));
-        assertFalse(schema.isValid("what"));
+        assertThat(schema.isValid("hexlet")).isTrue();
+        assertThat(schema.isValid("hex")).isFalse();
+        assertThat(schema.isValid("")).isFalse();
+        assertThat(schema.isValid(null)).isFalse();
+        assertThat(schema.isValid("what")).isFalse();
+    }
+
+    @Test
+    void testMinLengthPriority() {
+        schema.minLength(10)
+                .minLength(4);
+
+        assertThat(schema.isValid("Hexlet")).isTrue();
+        assertThat(schema.isValid("Hex")).isFalse();
+    }
+
+    @Test
+    void testContainsPriority() {
+        schema.contains("what")
+                .contains("hex");
+
+        assertThat(schema.isValid("hexlet")).isTrue();
+        assertThat(schema.isValid("what")).isFalse();
     }
 }
