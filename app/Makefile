@@ -18,3 +18,4 @@ report:
 
 lint:
 	./gradlew checkstyleMain
+	./gradlew checkstyleTest

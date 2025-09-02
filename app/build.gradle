@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id "org.sonarqube" version "6.3.1.5724"
     id 'checkstyle'
+    id 'jacoco'
 }
 
 group = 'hexlet.code'
@@ -19,6 +20,8 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+tasks.jacocoTestReport { reports { xml.required.set(true) } }
 
 sonar {
     properties {
