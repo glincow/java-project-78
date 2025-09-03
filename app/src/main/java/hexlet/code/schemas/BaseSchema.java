@@ -3,11 +3,11 @@ package hexlet.code.schemas;
 public abstract class BaseSchema<T> {
     private boolean isRequired = false;
 
-    public void setRequired(boolean required) {
+    public final void setRequired(boolean required) {
         isRequired = required;
     }
 
-    public boolean isRequired() {
+    public final boolean isRequired() {
         return isRequired;
     }
 
