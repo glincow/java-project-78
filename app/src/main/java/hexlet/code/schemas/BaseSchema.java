@@ -1,9 +1,17 @@
 package hexlet.code.schemas;
 
 public abstract class BaseSchema<T> {
-    boolean isRequired = false;
+    private boolean isRequired = false;
 
-    public boolean isValid(T value) {
+    public void setRequired(boolean required) {
+        isRequired = required;
+    }
+
+    public boolean isRequired() {
+        return isRequired;
+    }
+
+    public final boolean isValid(T value) {
         if (value == null) {
             return !isRequired;
         }

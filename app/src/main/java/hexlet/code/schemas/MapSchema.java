@@ -2,12 +2,12 @@ package hexlet.code.schemas;
 
 import java.util.Map;
 
-public class MapSchema extends BaseSchema<Map<?, ?>> {
+public final class MapSchema extends BaseSchema<Map<?, ?>> {
     private Integer requiredSize = null;
     private Map<String, ? extends BaseSchema<?>> schemas = null;
 
     public MapSchema required() {
-        this.isRequired = true;
+        setRequired(true);
         return this;
     }
 
