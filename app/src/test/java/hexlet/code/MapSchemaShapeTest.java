@@ -110,7 +110,7 @@ class MapSchemaShapeTest {
         schemas.put("name", validator.string().required());
 
         schema.required()
-                .sizeOf(2)
+                .sizeof(2)
                 .shape(schemas);
 
         Map<Object, Object> data1 = new HashMap<>();

@@ -43,7 +43,7 @@ public class MapValidatorTest {
 
     @Test
     void testSizeof() {
-        schema.sizeOf(2);
+        schema.sizeof(2);
 
         Map<String, String> data = new HashMap<>();
         assertThat(schema.isValid(data)).isFalse();
@@ -61,7 +61,7 @@ public class MapValidatorTest {
     @Test
     void testComplexValidation() {
         schema.required()
-                .sizeOf(2);
+                .sizeof(2);
 
         assertThat(schema.isValid(null)).isFalse();
 
@@ -91,7 +91,7 @@ public class MapValidatorTest {
     @Test
     void testEmptyMapValidation() {
         schema.required()
-                .sizeOf(0);
+                .sizeof(0);
 
         assertThat(schema.isValid(new HashMap<>())).isTrue();
 
