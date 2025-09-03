@@ -22,8 +22,8 @@ public class MapSchema extends BaseSchema<Map<?, ?>> {
 
     @Override
     public boolean validateValue(Map<?, ?> value) {
-        if (requiredSize != null) {
-            return value.size() == requiredSize;
+        if (requiredSize != null && value.size() != requiredSize) {
+            return false;
         }
 
         if (schemas != null) {
