@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class MapSchema extends BaseSchema<Map<?, ?>> {
     private Integer requiredSize = null;
-    private Map<?, BaseSchema<?>> schemas = null;
+    private Map<String, BaseSchema<?>> schemas = null;
 
     public MapSchema required() {
         this.isRequired = true;
@@ -16,7 +16,7 @@ public class MapSchema extends BaseSchema<Map<?, ?>> {
         return this;
     }
 
-    public void shape(Map<?, BaseSchema<?>> schemasToValidate) {
+    public void shape(Map<String ,BaseSchema<?>> schemasToValidate) {
         this.schemas = schemasToValidate;
     }
 
