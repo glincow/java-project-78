@@ -16,7 +16,7 @@ public class MapSchema extends BaseSchema<Map<?, ?>> {
         return this;
     }
 
-    public void shape(Map<String ,BaseSchema<?>> schemasToValidate) {
+    public void shape(Map<String, BaseSchema<?>> schemasToValidate) {
         this.schemas = schemasToValidate;
     }
 
