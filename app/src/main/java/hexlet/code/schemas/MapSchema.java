@@ -3,40 +3,27 @@ package hexlet.code.schemas;
 import java.util.Map;
 
 public final class MapSchema extends BaseSchema<Map<?, ?>> {
-    private Integer requiredSize = null;
-    private Map<String, ? extends BaseSchema<?>> schemas = null;
-
     public MapSchema required() {
-        setRequired(true);
+        this.required = true;
         return this;
     }
 
-    public MapSchema sizeof(Integer size) {
-        this.requiredSize = size;
+    public MapSchema sizeof(int size) {
+        addCheck("size", value -> value.size() == size);
         return this;
     }
 
     public void shape(Map<String, ? extends BaseSchema<?>> schemasToValidate) {
-        this.schemas = schemasToValidate;
-    }
-
-    @Override
-    public boolean validateValue(Map<?, ?> value) {
-        if (requiredSize != null && value.size() != requiredSize) {
-            return false;
-        }
-
-        if (schemas != null) {
+        addCheck("shape", value -> {
             for (Map.Entry<?, ?> entry : value.entrySet()) {
                 Object key = entry.getKey();
                 Object mapValue = entry.getValue();
-                BaseSchema<Object> valueSchema = (BaseSchema<Object>) schemas.get(key);
+                BaseSchema<Object> valueSchema = (BaseSchema<Object>) schemasToValidate.get(key);
                 if (valueSchema != null && !valueSchema.isValid(mapValue)) {
                     return false;
                 }
             }
-        }
-
-        return true;
+            return true;
+        });
     }
 }

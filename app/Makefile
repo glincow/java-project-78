@@ -19,3 +19,5 @@ report:
 lint:
 	./gradlew checkstyleMain
 	./gradlew checkstyleTest
+
+.PHONY: build
